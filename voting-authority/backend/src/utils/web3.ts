@@ -26,6 +26,8 @@ export const getNumberOfConnectedAuthorities = async (): Promise<number> => {
   try {
     connectedAuthorities = await getWeb3().eth.net.getPeerCount()
   } catch (error) {
+    console.log(error);
+
     throw new Error('Could not get the number of connected authorities (web3.eth.net.getPeerCount).')
   }
   return connectedAuthorities + 1

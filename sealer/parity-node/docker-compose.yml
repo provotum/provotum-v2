@@ -1,7 +1,8 @@
 version: "3.7"
 
 services:
-  authority:
+  sealer_authority:
+    container_name: sealer_authority_${SEALER_NR}
     build:
       context: .
       dockerfile: docker/Dockerfile
@@ -19,8 +20,7 @@ services:
     ports:
       - ${RPC_PORT}:${RPC_PORT}
     networks:
-      e-voting:
-        ipv4_address: ${PARITY_NODE_IP}
+      - e-voting
 
 networks:
   e-voting:

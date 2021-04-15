@@ -23,7 +23,7 @@ fi
 ###########################################
 # Mode
 ###########################################
-mode=production
+mode=development
 echo "The mode is: $mode"
 
 ###########################################
@@ -62,9 +62,10 @@ nodeJSON=$(cat $globalConfig | jq .services.sealer_parity_$sealerNr)
 PARITY_NODE_PORT=$(echo $nodeJSON | jq .port)
 # - POA Blockchain Main RPC IP (either 172.1.1.XXX or localhost)
 PARITY_NODE_IP=$(echo $nodeJSON | jq .ip.$mode | tr -d \")
-PORT=$(echo $nodeJSON | jq .node_port) 
+PORT=$(echo $nodeJSON | jq .node_port)
 WS_PORT=$(echo $nodeJSON | jq .ws_port)
 SIGNER_ADDRESS=0x$(cat $dir/keys/sealer$sealerNr.json | jq --raw-output .address)
+SEALER_NR=$sealerNr
 
 ###########################################
 # write ENV variables into .env
@@ -76,6 +77,7 @@ echo SIGNER_ADDRESS=$SIGNER_ADDRESS  >> $dir/.env
 echo PARITY_NODE_IP=$PARITY_NODE_IP >> $dir/.env
 echo PORT=$PORT >> $dir/.env
 echo WS_PORT=$WS_PORT >> $dir/.env
+echo SEALER_NR=$SEALER_NR >> $dir/.env
 
 # go into correct dir to use docker-compose with the .env in this directory
 cd $dir

@@ -8,7 +8,6 @@ RUN apk add --no-cache bash python make g++ gcc openssh-client git
 
 # copy package json, .npmrc and install dependencies
 COPY package*.json ./
-COPY .npmrc ./
 RUN npm install
 
 FROM node:12-alpine

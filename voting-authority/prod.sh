@@ -17,7 +17,7 @@ rm -f $dir/.env
 ###########################################
 # Mode
 ###########################################
-mode=production
+mode=development
 echo "The mode is: $mode"
 
 ###########################################
@@ -52,7 +52,7 @@ echo VOTING_AUTH_BACKEND_IP=$VOTING_AUTH_BACKEND_IP >> $dir/.env
 echo VOTING_AUTH_FRONTEND_PORT=$VOTING_AUTH_FRONTEND_PORT >> $dir/.env
 echo VOTING_AUTH_FRONTEND_IP=$VOTING_AUTH_FRONTEND_IP >> $dir/.env
 echo PARITY_NODE_PORT=$PARITY_NODE_PORT >> $dir/.env
-echo PARITY_NODE_IP=$PARITY_NODE_IP >> $dir/.env
+echo PARITY_NODE_IP=sealer_authority_1 >> $dir/.env
 echo NODE_ENV=$NODE_ENV >> $dir/.env
 
 ####### FRONTEND

@@ -10,7 +10,7 @@ readonly parentDir="$(dirname "$dir")"
 ###########################################
 # Mode
 ###########################################
-mode=production
+mode=development
 echo "The mode is: $mode"
 
 ###########################################
@@ -38,12 +38,7 @@ echo PARITY_NODE_PORT=$PARITY_NODE_PORT >> $dir/.env
 # ###########################################
 cd $dir
 
-if [[ $1 == 1 ]]; then
-    # build containers
-    docker-compose -p eth-stats -f docker-compose.yml up --build --detach
-else
-    # don't build containers
-    docker-compose -p eth-stats -f docker-compose.yml up --detach
-fi
+# build containers
+docker-compose -p eth-stats -f docker-compose.yml up --build --detach
 
 rm -f $dir/.env

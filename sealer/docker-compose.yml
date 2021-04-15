@@ -22,8 +22,7 @@ services:
       - /usr/src/backend/database/
       - ./backend/src/database/database.ts:/usr/src/database/database.ts
     networks:
-      e-voting:
-        ipv4_address: ${SEALER_BACKEND_IP}
+      - e-voting
     command: npm run serve:dev
 
   frontend:
@@ -42,8 +41,7 @@ services:
       - ./frontend/src:/usr/src/frontend/src
       - ./frontend/public:/usr/src/frontend/public
     networks:
-      e-voting:
-        ipv4_address: ${SEALER_FRONTEND_IP}
+      - e-voting
     depends_on:
       - backend
     command: npm run start

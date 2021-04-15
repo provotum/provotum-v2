@@ -4,7 +4,7 @@ import { serverConfig } from '../config'
 const router: express.Router = express.Router()
 
 router.get('/getNodeURL', (req, res) => {
-  res.status(200).json({ node: serverConfig.nodeUrl })
+  res.status(200).json({ node: serverConfig.nodeUrlExternal })
 })
 
 export default router

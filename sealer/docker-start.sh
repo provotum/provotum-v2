@@ -10,7 +10,7 @@ readonly parentDir="$(dirname "$dir")"
 ###########################################
 # Mode
 ###########################################
-mode=production
+mode=development
 ###########################################
 # Config
 # - the config file with all IPs and ports

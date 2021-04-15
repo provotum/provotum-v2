@@ -10,7 +10,7 @@ readonly parentDir="$(dirname "$dir")"
 ###########################################
 # Mode
 ###########################################
-mode=production
+mode=development
 echo "The mode is: $mode"
 
 ###########################################

@@ -17,8 +17,7 @@ services:
     volumes:
       - ./backend/src:/usr/src/backend/src
     networks:
-      e-voting:
-        ipv4_address: ${VOTING_AUTH_BACKEND_IP}
+      - e-voting
     command: npm run serve:dev:clean
 
   frontend:
@@ -35,8 +34,7 @@ services:
       - ./frontend/src:/usr/src/frontend/src
       - ./frontend/public:/usr/src/frontend/public
     networks:
-      e-voting:
-        ipv4_address: ${VOTING_AUTH_FRONTEND_IP}
+      - e-voting
     depends_on:
       - backend
     command: npm run start

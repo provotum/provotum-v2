@@ -1,7 +1,7 @@
 version: "3.7"
 
 services:
-  authority:
+  voting-authority:
     image: voting_authority:latest
     environment:
       - VOTING_AUTH_BACKEND_PORT=${VOTING_AUTH_BACKEND_PORT}
@@ -19,8 +19,7 @@ services:
     ports:
       - ${VOTING_AUTH_BACKEND_PORT}:${VOTING_AUTH_BACKEND_PORT}
     networks:
-      e-voting:
-        ipv4_address: ${VOTING_AUTH_BACKEND_IP}
+      - e-voting
     command: node ./backend/dist/src/server.js
 
 networks:

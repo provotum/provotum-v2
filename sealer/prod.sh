@@ -18,7 +18,7 @@ rm -f $backendDir/wallet/sealer*
 ###########################################
 # Mode
 ###########################################
-mode=production
+mode=development
 echo "The mode is: $mode"
 
 ###########################################
@@ -61,19 +61,22 @@ PARITY_NODE_PORT=$(cat $globalConfig | jq .services.sealer_parity_$sealerNr.port
 PARITY_NODE_IP=$(cat $globalConfig | jq .services.sealer_parity_$sealerNr.ip.$mode | tr -d \")
 # - Specify NODE_ENV
 NODE_ENV=$mode
+# - Specify Sealer NR
+SEALER_NR=$sealerNr
 
 ###########################################
 # write ENV variables into .env
 ###########################################
 echo VOTING_AUTH_BACKEND_PORT=${VOTING_AUTH_BACKEND_PORT} >> $dir/.env
-echo VOTING_AUTH_BACKEND_IP=${VOTING_AUTH_BACKEND_IP} >> $dir/.env
+echo VOTING_AUTH_BACKEND_IP=voting-authority >> $dir/.env
 echo SEALER_BACKEND_PORT=${SEALER_BACKEND_PORT} >> $dir/.env
 echo SEALER_BACKEND_IP=${SEALER_BACKEND_IP} >> $dir/.env
 echo SEALER_FRONTEND_PORT=${SEALER_FRONTEND_PORT} >> $dir/.env
 echo SEALER_FRONTEND_IP=${SEALER_FRONTEND_IP} >> $dir/.env
 echo PARITY_NODE_PORT=${PARITY_NODE_PORT} >> $dir/.env
-echo PARITY_NODE_IP=${PARITY_NODE_IP} >> $dir/.env
+echo PARITY_NODE_IP=sealer_authority_${SEALER_NR} >> $dir/.env
 echo NODE_ENV=${NODE_ENV} >> $dir/.env
+echo SEALER_NR=${SEALER_NR} >> $dir/.env
 
 ####### FRONTEND
 
@@ -100,14 +103,8 @@ $parentDir/docker-network.sh $network_name
 cd $dir/backend && npm run clean
 cd $dir
 
-if [[ $2 == 1 ]]; then
-    # build containers
-    DOCKER_BUILDKIT=1 docker build -t voting_sealer_$sealerNr . --build-arg SB_PORT=$SEALER_BACKEND_PORT --build-arg SB_IP=$SEALER_BACKEND_IP --build-arg SF_PORT=$SEALER_FRONTEND_PORT --build-arg SF_IP=$SEALER_FRONTEND_IP --build-arg PARITY_PORT=$PARITY_NODE_PORT --build-arg PARITY_IP=$PARITY_NODE_IP --build-arg VA_PORT=$VOTING_AUTH_BACKEND_PORT --build-arg VA_IP=$VOTING_AUTH_BACKEND_IP
-    docker-compose -f pre_built.yml up --detach --no-build
-else
-    # don't build containers
-    docker-compose -f pre_built.yml up --detach --no-build
-fi
+DOCKER_BUILDKIT=1 docker build -t voting_sealer_$sealerNr . --build-arg SB_PORT=$SEALER_BACKEND_PORT --build-arg SB_IP=$SEALER_BACKEND_IP --build-arg SF_PORT=$SEALER_FRONTEND_PORT --build-arg SF_IP=$SEALER_FRONTEND_IP --build-arg PARITY_PORT=$PARITY_NODE_PORT --build-arg PARITY_IP=$PARITY_NODE_IP --build-arg VA_PORT=$VOTING_AUTH_BACKEND_PORT --build-arg VA_IP=$VOTING_AUTH_BACKEND_IP
+docker-compose -p voting_sealer_$sealerNr -f pre_built.yml up --detach --no-build
 
 # remove all temp files
 rm -f $backendDir/wallet/sealer.json

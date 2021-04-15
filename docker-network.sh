@@ -15,9 +15,5 @@ if [[ $exists == 1 ]]; then
 else
     echo "> creating network: $network_name"
     docker network create $network_name \
-    --driver=bridge \
-    --subnet=172.1.1.0/24 \
-    --gateway=172.1.1.1 \
-    --opt com.docker.network.bridge.enable_icc=true \
-    --opt com.docker.network.bridge.enable_ip_masquerade=true > /dev/null 2>&1
+    --driver=bridge  > /dev/null 2>&1
 fi

@@ -30,18 +30,12 @@ RUN npm install
 RUN npm run build
 
 ## STAGE 2 -> only copy the important stuff from the previous stage
-FROM node:12-alpine
+# production environment
+FROM nginx:stable-alpine
 
-# create app directory
-WORKDIR /usr/code
+COPY --from=builder /usr/code/build /usr/share/nginx/html
+COPY --from=builder /usr/code/.env /usr/share/nginx/html/.env
+COPY --from=builder /usr/code/public /usr/share/nginx/html/public
 
-# install serve
-ENV NODE_ENV=production
-RUN npm install -g serve
-
-# copy the output (build & public) folder
-COPY --from=builder /usr/code/build /usr/code/build
-COPY --from=builder /usr/code/.env /usr/code/.env
-COPY --from=builder /usr/code/public /usr/code/public
-
-CMD ["serve", "-d -s build -l tcp://172.1.1.30:3000"]
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

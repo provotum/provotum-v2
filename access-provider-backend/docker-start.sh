@@ -10,7 +10,7 @@ readonly parentDir="$(dirname "$dir")"
 ###########################################
 # Mode
 ###########################################
-mode=production
+mode=development
 
 ###########################################
 # Config
@@ -30,7 +30,7 @@ rm -f $dir/.env
 ACCESS_PROVIDER_BACKEND_PORT=$(cat $globalConfig | jq .services.access_provider_backend.port)
 # - Access Provider Backend IP (either 172.1.1.XXX or localhost)
 ACCESS_PROVIDER_BACKEND_IP=$(cat $globalConfig | jq .services.access_provider_backend.ip.$mode | tr -d \")
-# - Voting Authority Backend PORT (the port stays the same, in dev and prod mode) 
+# - Voting Authority Backend PORT (the port stays the same, in dev and prod mode)
 VOTING_AUTH_BACKEND_PORT=$(cat $globalConfig | jq .services.voting_authority_backend.port)
 # - Voting Authority Backend IP (either 172.1.1.XXX or localhost)
 VOTING_AUTH_BACKEND_IP=$(cat $globalConfig | jq .services.voting_authority_backend.ip.$mode | tr -d \")
@@ -47,9 +47,11 @@ NODE_ENV=$mode
 echo ACCESS_PROVIDER_BACKEND_PORT=$ACCESS_PROVIDER_BACKEND_PORT >> $dir/.env
 echo ACCESS_PROVIDER_BACKEND_IP=$ACCESS_PROVIDER_BACKEND_IP >> $dir/.env
 echo VOTING_AUTH_BACKEND_PORT=$VOTING_AUTH_BACKEND_PORT >> $dir/.env
-echo VOTING_AUTH_BACKEND_IP=$VOTING_AUTH_BACKEND_IP >> $dir/.env
+echo VOTING_AUTH_BACKEND_IP=voting-authority >> $dir/.env
 echo PARITY_NODE_PORT=$PARITY_NODE_PORT >> $dir/.env
-echo PARITY_NODE_IP=$PARITY_NODE_IP >> $dir/.env
+echo PARITY_NODE_IP=sealer_authority_1 >> $dir/.env
+echo PARITY_NODE_EXTERNAL_PORT=$PARITY_NODE_PORT >> $dir/.env
+echo PARITY_NODE_EXTERNAL_IP=$PARITY_NODE_IP >> $dir/.env
 echo NODE_ENV=$NODE_ENV >> $dir/.env
 
 ###########################################
@@ -65,13 +67,7 @@ $parentDir/docker-network.sh $network_name
 ###########################################
 cd $dir
 
-if [[ $1 == 1 ]]; then
-    # build containers
-    DOCKER_BUILDKIT=1 docker build -t access_provider . --build-arg PARITY_PORT=$PARITY_NODE_PORT --build-arg PARITY_IP=$PARITY_NODE_IP --build-arg VA_PORT=$VOTING_AUTH_BACKEND_PORT --build-arg VA_IP=$VOTING_AUTH_BACKEND_IP --build-arg AP_PORT=$ACCESS_PROVIDER_BACKEND_PORT --build-arg AP_IP=$ACCESS_PROVIDER_BACKEND_IP 
-    docker-compose -f pre_built.yml up --detach --no-build
-else
-    # don't build containers
-    docker-compose -f pre_built.yml up --detach --no-build
-fi
+DOCKER_BUILDKIT=1 docker build -t access_provider . --build-arg PARITY_PORT=$PARITY_NODE_PORT --build-arg PARITY_IP=$PARITY_NODE_IP --build-arg VA_PORT=$VOTING_AUTH_BACKEND_PORT --build-arg VA_IP=$VOTING_AUTH_BACKEND_IP --build-arg AP_PORT=$ACCESS_PROVIDER_BACKEND_PORT --build-arg AP_IP=$ACCESS_PROVIDER_BACKEND_IP
+docker-compose -f pre_built.yml up --detach --no-build
 
 # rm -f $dir/.env
