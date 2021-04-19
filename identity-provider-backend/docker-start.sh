@@ -57,7 +57,7 @@ $parentDir/docker-network.sh $network_name
 ###########################################
 # start containers
 ###########################################
-cd $dir
+cd $dir && npm run clean
 
 # build containers
 DOCKER_BUILDKIT=1 docker build -t identity_provider . --build-arg AP_PORT=$ACCESS_PROVIDER_BACKEND_PORT --build-arg AP_IP=$ACCESS_PROVIDER_BACKEND_IP --build-arg IP_IP=$IDENTITY_PROVIDER_BACKEND_IP --build-arg IP_PORT=$IDENTITY_PROVIDER_BACKEND_PORT

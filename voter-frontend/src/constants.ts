@@ -4,5 +4,5 @@ export const NO_CONTRACT_ADDRESS_ERROR_MESSAGE =
 export const NO_ACCOUNTS_FOUND_ERROR_MESSAGE = 'Could not get any existing addresses on the chain.'
 export const PERSONAL_ACCOUNT_ERROR_MESSAGE = 'Could not create your wallet.'
 
-export const ACCESS_PROVIDER_URL = `http://localhost:4002`
-export const IDENTITY_PROVIDER_URL = `http://localhost:4003`
+export const ACCESS_PROVIDER_URL = `http://${process.env.REACT_APP_ACCESS_PROVIDER_IP}:${process.env.REACT_APP_ACCESS_PROVIDER_PORT}`
+export const IDENTITY_PROVIDER_URL = `http://${process.env.REACT_APP_IDENTITY_PROVIDER_IP}:${process.env.REACT_APP_IDENTITY_PROVIDER_PORT}`
