@@ -111,6 +111,10 @@
       "ws_port": 5013
     },
     "ethstats": {
+      "ip": {
+        "development": "localhost",
+        "production": "172.1.1.173"
+      },
       "port": 6001
     }
   }

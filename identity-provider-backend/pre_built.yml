@@ -9,8 +9,12 @@ services:
       - ACCESS_PROVIDER_BACKEND_PORT=${ACCESS_PROVIDER_BACKEND_PORT}
       - ACCESS_PROVIDER_BACKEND_IP=${ACCESS_PROVIDER_BACKEND_IP}
       - NODE_ENV=${NODE_ENV}
-    ports:
-      - ${IDENTITY_PROVIDER_BACKEND_PORT}:${IDENTITY_PROVIDER_BACKEND_PORT}
+    labels:
+      - "traefik.docker.network=e-voting"
+      - "traefik.enable=true"
+      - "traefik.basic.frontend.rule=Host:${IDENTITY_PROVIDER_BACKEND_IP}"
+      - "traefik.basic.port=${IDENTITY_PROVIDER_BACKEND_PORT}"
+      - "traefik.basic.protocol=http"
     networks:
       - e-voting
     command: node dist/server.js

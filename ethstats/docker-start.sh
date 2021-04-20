@@ -24,14 +24,18 @@ globalConfig=$parentDir/system.json
 ###########################################
 
 ETHSTATS_PORT=$(cat $globalConfig | jq .services.ethstats.port)
+ETHSTATS_IP=$(cat $globalConfig | jq .services.ethstats.ip.$mode | tr -d \")
 # - POA Blockchain Main RPC PORT (the port stays the same, in dev and prod mode)
+PARITY_NODE_IP=$(cat $globalConfig | jq .services.sealer_parity_1.ip | tr -d \")
 PARITY_NODE_PORT=$(cat $globalConfig | jq .services.sealer_parity_1.port | tr -d \")
 
 ###########################################
 # write ENV variables into .env
 ###########################################
 echo ETHSTATS_PORT=$ETHSTATS_PORT >> $dir/.env
+echo ETHSTATS_IP=$ETHSTATS_IP >> $dir/.env
 echo PARITY_NODE_PORT=$PARITY_NODE_PORT >> $dir/.env
+echo PARITY_NODE_IP=$PARITY_NODE_IP >> $dir/.env
 
 # ###########################################
 # # start container

@@ -17,8 +17,12 @@ services:
       --jsonrpc-interface all
       --engine-signer ${SIGNER_ADDRESS}
       --config /parity/config/authority.toml
-    ports:
-      - ${RPC_PORT}:${RPC_PORT}
+    labels:
+      - "traefik.docker.network=e-voting"
+      - "traefik.enable=true"
+      - "traefik.basic.frontend.rule=Host:${PARITY_NODE_IP}"
+      - "traefik.basic.port=${RPC_PORT}"
+      - "traefik.basic.protocol=http"
     networks:
       - e-voting
 

@@ -9,8 +9,12 @@ services:
       - REACT_APP_ACCESS_PROVIDER_PORT=${REACT_APP_ACCESS_PROVIDER_PORT}
       - REACT_APP_IDENTITY_PROVIDER_IP=${REACT_APP_IDENTITY_PROVIDER_IP}
       - REACT_APP_IDENTITY_PROVIDER_PORT=${REACT_APP_IDENTITY_PROVIDER_PORT}
-    ports:
-      - 3000:80
+    labels:
+      - "traefik.docker.network=e-voting"
+      - "traefik.enable=true"
+      - "traefik.basic.frontend.rule=Host:${VOTER_FRONTEND_IP}"
+      - "traefik.basic.port=80"
+      - "traefik.basic.protocol=http"
     networks:
       - e-voting
 

@@ -4,6 +4,16 @@ services:
   ethstats:
     image: alethio/ethereum-lite-explorer
     environment:
-      - APP_NODE_URL=http://localhost:${PARITY_NODE_PORT}
-    ports:
-      - ${ETHSTATS_PORT}:80
+      - APP_NODE_URL=http://${PARITY_NODE_IP}:${PARITY_NODE_PORT}
+    labels:
+      - "traefik.docker.network=e-voting"
+      - "traefik.enable=true"
+      - "traefik.basic.frontend.rule=Host:${ETHSTATS_IP}"
+      - "traefik.basic.port=${ETHSTATS_PORT}"
+      - "traefik.basic.protocol=http"
+    networks:
+      - e-voting
+
+networks:
+  e-voting:
+    external: true
