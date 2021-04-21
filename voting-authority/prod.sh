@@ -91,7 +91,7 @@ cd $dir/backend && npm run clean
 cd $dir
 
 # start docker containers
-DOCKER_BUILDKIT=1 docker build -t voting_authority . --build-arg PARITY_PORT=$PARITY_NODE_PORT --build-arg PARITY_IP=$PARITY_NODE_IP --build-arg VA_PORT=$VOTING_AUTH_BACKEND_PORT --build-arg VA_IP=$VOTING_AUTH_BACKEND_IP
+DOCKER_BUILDKIT=1 docker build -t voting_authority . --build-arg PARITY_PORT=$PARITY_NODE_PORT --build-arg PARITY_IP=$PARITY_NODE_IP --build-arg VA_PORT=$VOTING_AUTH_BACKEND_PORT --build-arg VA_IP=$VOTING_AUTH_BACKEND_IP --build-arg VA_EX=$REACT_APP_VOTING_AUTH_BACKEND_IP
 docker-compose -f pre_built.yml up --detach --no-build
 
 # remove all temp files
