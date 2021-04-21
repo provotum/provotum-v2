@@ -17,7 +17,7 @@ server.use(requestLogger)
 server.use(responseLogger)
 server.use(
   cors({
-    origin: ['http://localhost:3000', 'http://172.1.1.30:3000', 'http://localhost:4003', 'http://172.1.1.43:4003'],
+    origin: ['http://localhost:3000', 'http://172.1.1.30:3000', 'http://localhost:4003', 'http://172.1.1.43:4003', `https://${process.env.VOTER_FRONTEND}`],
   })
 )
 

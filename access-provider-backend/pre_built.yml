@@ -13,6 +13,7 @@ services:
       - PARITY_NODE_EXTERNAL_IP=${PARITY_NODE_EXTERNAL_IP}
       - PARITY_NODE_EXTERNAL_PORT=${PARITY_NODE_EXTERNAL_PORT}
       - NODE_ENV=${NODE_ENV}
+      - VOTER_FRONTEND_EXTERNAL=${VOTER_FRONTEND_EXTERNAL}
     labels:
       - "traefik.docker.network=e-voting"
       - "traefik.enable=true"

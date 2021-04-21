@@ -33,7 +33,10 @@ globalConfig=$parentDir/system.json
 VOTING_AUTH_BACKEND_PORT=$(cat $globalConfig | jq .services.voting_authority_backend.port)
 # - Voting Authority Backend IP (either 172.1.1.XXX or localhost)
 VOTING_AUTH_BACKEND_IP=$(cat $globalConfig | jq .services.voting_authority_backend.ip.$mode | tr -d \")
-VOTING_AUTH_BACKEND_EXTERNAL=$(cat $globalConfig | jq .services.voting_authority_backend.ip.external)
+VOTING_AUTH_BACKEND_EXTERNAL=$(cat $globalConfig | jq .services.voting_authority_backend.ip.external | tr -d \")
+SEALER_FRONTEND_1_EXTERNAL=$(cat $globalConfig | jq .services.sealer_backend_1.ip.external | tr -d \")
+SEALER_FRONTEND_2_EXTERNAL=$(cat $globalConfig | jq .services.sealer_backend_2.ip.external | tr -d \")
+SEALER_FRONTEND_3_EXTERNAL=$(cat $globalConfig | jq .services.sealer_backend_3.ip.external | tr -d \")
 # - Voting Authority Frontend PORT (the port stays the same, in dev and prod mode)
 VOTING_AUTH_FRONTEND_PORT=$(cat $globalConfig | jq .services.voting_authority_frontend.port)
 # - Voting Authority Frontend IP (either 172.1.1.XXX or localhost)
@@ -56,6 +59,9 @@ echo VOTING_AUTH_FRONTEND_IP=$VOTING_AUTH_FRONTEND_IP >> $dir/.env
 echo PARITY_NODE_PORT=$PARITY_NODE_PORT >> $dir/.env
 echo PARITY_NODE_IP=sealer_authority_1 >> $dir/.env
 echo NODE_ENV=$NODE_ENV >> $dir/.env
+echo SEALER_FRONTEND_1_EXTERNAL=$SEALER_FRONTEND_1_EXTERNAL >> $dir/.env
+echo SEALER_FRONTEND_2_EXTERNAL=$SEALER_FRONTEND_1_EXTERNAL >> $dir/.env
+echo SEALER_FRONTEND_3_EXTERNAL=$SEALER_FRONTEND_1_EXTERNAL >> $dir/.env
 
 ####### FRONTEND
 
@@ -91,7 +97,7 @@ cd $dir/backend && npm run clean
 cd $dir
 
 # start docker containers
-DOCKER_BUILDKIT=1 docker build -t voting_authority . --build-arg PARITY_PORT=$PARITY_NODE_PORT --build-arg PARITY_IP=$PARITY_NODE_IP --build-arg VA_PORT=$VOTING_AUTH_BACKEND_PORT --build-arg VA_IP=$VOTING_AUTH_BACKEND_IP --build-arg VA_EX=$VOTING_AUTH_BACKEND_EXTERNAL
+DOCKER_BUILDKIT=1 docker build -t voting_authority . --build-arg PARITY_PORT=$PARITY_NODE_PORT --build-arg PARITY_IP=$PARITY_NODE_IP --build-arg VA_PORT=$VOTING_AUTH_BACKEND_PORT --build-arg VA_IP=$VOTING_AUTH_BACKEND_IP --build-arg VA_EX=$VOTING_AUTH_BACKEND_EXTERNAL --build-arg S1=$SEALER_FRONTEND_1_EXTERNAL --build-arg S2=$SEALER_FRONTEND_2_EXTERNAL --build-arg S3=$SEALER_FRONTEND_3_EXTERNAL
 docker-compose -f pre_built.yml up --detach --no-build
 
 # remove all temp files

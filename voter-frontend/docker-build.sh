@@ -41,10 +41,10 @@ echo NODE_ENV=$NODE_ENV >> $dir/.env
 # ENV variables
 ###########################################
 ACCESS_PROVIDER_PORT=443
-ACCESS_PROVIDER_EXTERNAL=$(cat $globalConfig | jq .services.access_provider_backend.ip.external)
+ACCESS_PROVIDER_EXTERNAL=$(cat $globalConfig | jq .services.access_provider_backend.ip.external | tr -d \")
 
 IDENTITY_PROVIDER_PORT=443
-IDENTITY_PROVIDER_EXTERNAL=$(cat $globalConfig | jq .services.identity_provider_backend.ip.external)
+IDENTITY_PROVIDER_EXTERNAL=$(cat $globalConfig | jq .services.identity_provider_backend.ip.external | tr -d \")
 
 VOTER_FRONTEND_EXTERNAL=$(cat $globalConfig | jq .services.voter_frontend.ip.external | tr -d \")
 

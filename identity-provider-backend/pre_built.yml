@@ -9,6 +9,7 @@ services:
       - ACCESS_PROVIDER_BACKEND_PORT=${ACCESS_PROVIDER_BACKEND_PORT}
       - ACCESS_PROVIDER_BACKEND_IP=${ACCESS_PROVIDER_BACKEND_IP}
       - NODE_ENV=${NODE_ENV}
+      - VOTER_FRONTEND=${VOTER_FRONTEND}
     labels:
       - "traefik.docker.network=e-voting"
       - "traefik.enable=true"
