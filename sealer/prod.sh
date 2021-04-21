@@ -61,6 +61,7 @@ SEALER_FRONTEND_IP=$(cat $globalConfig | jq .services.sealer_frontend_$sealerNr.
 PARITY_NODE_PORT=$(cat $globalConfig | jq .services.sealer_parity_$sealerNr.port)
 # - POA Blockchain Main RPC IP (either 172.1.1.XXX or localhost)
 PARITY_NODE_IP=$(cat $globalConfig | jq .services.sealer_parity_$sealerNr.ip.$mode | tr -d \")
+VOTER_FRONTEND=$(cat $globalConfig | jq .services.voter_frontend.ip.external | tr -d \")
 # - Specify NODE_ENV
 NODE_ENV=$mode
 # - Specify Sealer NR
@@ -80,6 +81,7 @@ echo PARITY_NODE_PORT=${PARITY_NODE_PORT} >> $dir/.env
 echo PARITY_NODE_IP=sealer_authority_${SEALER_NR} >> $dir/.env
 echo NODE_ENV=${NODE_ENV} >> $dir/.env
 echo SEALER_NR=${SEALER_NR} >> $dir/.env
+echo VOTER_FRONTEND=${VOTER_FRONTEND} >> $dir/.env
 
 ####### FRONTEND
 

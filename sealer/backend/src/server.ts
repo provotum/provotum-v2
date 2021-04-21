@@ -25,6 +25,7 @@ server.use(logger)
 server.use(
   cors({
     origin: [
+      `https://${process.env.VOTER_FRONTEND}`,
       `http://${process.env.SEALER_FRONTEND_IP}:${process.env.SEALER_FRONTEND_PORT}`,
       `http://localhost:${process.env.SEALER_FRONTEND_PORT}`,
     ],
