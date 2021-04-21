@@ -12,7 +12,7 @@ services:
     labels:
       - "traefik.docker.network=e-voting"
       - "traefik.enable=true"
-      - "traefik.basic.frontend.rule=Host:${IDENTITY_PROVIDER_BACKEND_IP}"
+      - "traefik.basic.frontend.rule=Host:${IDENTITY_PROVIDER_BACKEND_EXTERNAL}"
       - "traefik.basic.port=${IDENTITY_PROVIDER_BACKEND_PORT}"
       - "traefik.basic.protocol=http"
     networks:

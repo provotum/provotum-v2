@@ -6,14 +6,16 @@
     "voter_frontend": {
       "ip": {
         "development": "localhost",
-        "production": "172.1.1.30"
+        "production": "172.1.1.30",
+        "external": ""
       },
       "port": 3000
     },
     "voting_authority_backend": {
       "ip": {
         "development": "localhost",
-        "production": "172.1.1.41"
+        "production": "172.1.1.41",
+        "external": ""
       },
       "port": 4001
     },
@@ -27,21 +29,24 @@
     "access_provider_backend": {
       "ip": {
         "development": "localhost",
-        "production": "172.1.1.42"
+        "production": "172.1.1.42",
+        "external": ""
       },
       "port": 4002
     },
     "identity_provider_backend": {
       "ip": {
         "development": "localhost",
-        "production": "172.1.1.43"
+        "production": "172.1.1.43",
+        "external": ""
       },
       "port": 4003
     },
     "sealer_backend_1": {
       "ip": {
         "development": "localhost",
-        "production": "172.1.1.141"
+        "production": "172.1.1.141",
+        "external": ""
       },
       "port": 4011
     },
@@ -55,7 +60,8 @@
     "sealer_parity_1": {
       "ip": {
         "development": "localhost",
-        "production": "172.1.1.171"
+        "production": "172.1.1.171",
+        "external": ""
       },
       "port": 7011,
       "rpc_port": 7011,
@@ -65,7 +71,8 @@
     "sealer_backend_2": {
       "ip": {
         "development": "localhost",
-        "production": "172.1.1.142"
+        "production": "172.1.1.142",
+        "external": ""
       },
       "port": 4012
     },
@@ -79,7 +86,8 @@
     "sealer_parity_2": {
       "ip": {
         "development": "localhost",
-        "production": "172.1.1.172"
+        "production": "172.1.1.172",
+        "external": ""
       },
       "port": 7012,
       "rpc_port": 7012,
@@ -89,7 +97,8 @@
     "sealer_backend_3": {
       "ip": {
         "development": "localhost",
-        "production": "172.1.1.143"
+        "production": "172.1.1.143",
+        "external": ""
       },
       "port": 4013
     },
@@ -103,7 +112,8 @@
     "sealer_parity_3": {
       "ip": {
         "development": "localhost",
-        "production": "172.1.1.173"
+        "production": "172.1.1.173",
+        "external": ""
       },
       "port": 7013,
       "rpc_port": 7013,

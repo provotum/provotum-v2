@@ -33,6 +33,7 @@ globalConfig=$parentDir/system.json
 VOTING_AUTH_BACKEND_PORT=$(cat $globalConfig | jq .services.voting_authority_backend.port)
 # - Voting Authority Backend IP (either 172.1.1.XXX or localhost)
 VOTING_AUTH_BACKEND_IP=$(cat $globalConfig | jq .services.voting_authority_backend.ip.$mode | tr -d \")
+VOTING_AUTH_BACKEND_EXTERNAL=$(cat $globalConfig | jq .services.voting_authority_backend.ip.external)
 # - Voting Authority Frontend PORT (the port stays the same, in dev and prod mode)
 VOTING_AUTH_FRONTEND_PORT=$(cat $globalConfig | jq .services.voting_authority_frontend.port)
 # - Voting Authority Frontend IP (either 172.1.1.XXX or localhost)
@@ -49,6 +50,7 @@ NODE_ENV=$mode
 ###########################################
 echo VOTING_AUTH_BACKEND_PORT=$VOTING_AUTH_BACKEND_PORT >> $dir/.env
 echo VOTING_AUTH_BACKEND_IP=$VOTING_AUTH_BACKEND_IP >> $dir/.env
+echo VOTING_AUTH_BACKEND_EXTERNAL=$VOTING_AUTH_BACKEND_EXTERNAL >> $dir/.env
 echo VOTING_AUTH_FRONTEND_PORT=$VOTING_AUTH_FRONTEND_PORT >> $dir/.env
 echo VOTING_AUTH_FRONTEND_IP=$VOTING_AUTH_FRONTEND_IP >> $dir/.env
 echo PARITY_NODE_PORT=$PARITY_NODE_PORT >> $dir/.env
@@ -60,11 +62,11 @@ echo NODE_ENV=$NODE_ENV >> $dir/.env
 ###########################################
 # ENV variables
 ###########################################
-ACCESS_PROVIDER_PORT=$(cat $globalConfig | jq .services.access_provider_backend.port)
-ACCESS_PROVIDER_IP=$(cat $globalConfig | jq .services.access_provider_backend.ip.$mode | tr -d \")
+ACCESS_PROVIDER_PORT=443
+ACCESS_PROVIDER_IP=$(cat $globalConfig | jq .services.access_provider_backend.ip.external)
 
-IDENTITY_PROVIDER_PORT=$(cat $globalConfig | jq .services.identity_provider_backend.port)
-IDENTITY_PROVIDER_IP=$(cat $globalConfig | jq .services.identity_provider_backend.ip.$mode | tr -d \")
+IDENTITY_PROVIDER_PORT=443
+IDENTITY_PROVIDER_IP=$(cat $globalConfig | jq .services.identity_provider_backend.ip.external)
 
 ###########################################
 # write ENV variables into .env
@@ -73,8 +75,8 @@ echo REACT_APP_ACCESS_PROVIDER_PORT=${ACCESS_PROVIDER_PORT} >> $dir/.env
 echo REACT_APP_ACCESS_PROVIDER_IP=${ACCESS_PROVIDER_IP} >> $dir/.env
 echo REACT_APP_IDENTITY_PROVIDER_PORT=${IDENTITY_PROVIDER_PORT} >> $dir/.env
 echo REACT_APP_IDENTITY_PROVIDER_IP=${IDENTITY_PROVIDER_IP} >> $dir/.env
-echo REACT_APP_VOTING_AUTH_BACKEND_PORT=${VOTING_AUTH_BACKEND_PORT} >> $dir/.env
-echo REACT_APP_VOTING_AUTH_BACKEND_IP=${VOTING_AUTH_BACKEND_IP} >> $dir/.env
+echo REACT_APP_VOTING_AUTH_BACKEND_PORT=443 >> $dir/.env
+echo REACT_APP_VOTING_AUTH_BACKEND_IP=${VOTING_AUTH_BACKEND_EXTERNAL} >> $dir/.env
 
 ###########################################
 # docker network

@@ -47,10 +47,12 @@ cp $parentDir/poa-blockchain/keys/sealer$sealerNr.pwd $backendDir/wallet/sealer.
 VOTING_AUTH_BACKEND_PORT=$(cat $globalConfig | jq .services.voting_authority_backend.port)
 # - Voting Authority Backend IP (either 172.1.1.XXX or localhost)
 VOTING_AUTH_BACKEND_IP=$(cat $globalConfig | jq .services.voting_authority_backend.ip.$mode | tr -d \")
+VOTING_AUTH_BACKEND_EXTERNAL=$(cat $globalConfig | jq .services.voting_authority_backend.ip.external)
 # - Sealer Backend Port (the port stays the same, in dev and prod mode)
 SEALER_BACKEND_PORT=$(cat $globalConfig | jq .services.sealer_backend_$sealerNr.port)
 # - Sealer Backend IP (either 172.1.1.XXX or localhost)
 SEALER_BACKEND_IP=$(cat $globalConfig | jq .services.sealer_backend_$sealerNr.ip.$mode | tr -d \")
+SEALER_BACKEND_EXTERNAL=$(cat $globalConfig | jq .services.sealer_backend_$sealerNr.ip.external | tr -d \")
 # - Sealer Frontend Port (the port stays the same, in dev and prod mode)
 SEALER_FRONTEND_PORT=$(cat $globalConfig | jq .services.sealer_frontend_$sealerNr.port)
 # - Sealer Frontend IP (either 172.1.1.XXX or localhost)
@@ -83,12 +85,12 @@ echo SEALER_NR=${SEALER_NR} >> $dir/.env
 ###########################################
 # write ENV variables into .env
 ###########################################
-echo REACT_APP_VOTING_AUTH_BACKEND_PORT=${VOTING_AUTH_BACKEND_PORT} >> $dir/.env
-echo REACT_APP_VOTING_AUTH_BACKEND_IP=${VOTING_AUTH_BACKEND_IP} >> $dir/.env
-echo REACT_APP_SEALER_FRONTEND_PORT=${SEALER_FRONTEND_PORT} >> $dir/.env
-echo REACT_APP_SEALER_FRONTEND_IP=${SEALER_FRONTEND_IP} >> $dir/.env
-echo REACT_APP_SEALER_BACKEND_PORT=${SEALER_BACKEND_PORT} >> $dir/.env
-echo REACT_APP_SEALER_BACKEND_IP=${SEALER_BACKEND_IP} >> $dir/.env
+echo REACT_APP_VOTING_AUTH_BACKEND_PORT=443 >> $dir/.env
+echo REACT_APP_VOTING_AUTH_BACKEND_IP=${VOTING_AUTH_BACKEND_EXTERNAL} >> $dir/.env
+echo REACT_APP_SEALER_FRONTEND_PORT=443 >> $dir/.env
+echo REACT_APP_SEALER_FRONTEND_IP=${SEALER_BACKEND_EXTERNAL} >> $dir/.env
+echo REACT_APP_SEALER_BACKEND_PORT=443 >> $dir/.env
+echo REACT_APP_SEALER_BACKEND_IP=${SEALER_BACKEND_EXTERNAL} >> $dir/.env
 echo PORT=${SEALER_FRONTEND_PORT} >> $dir/.env
 
 ###########################################

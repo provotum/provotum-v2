@@ -40,23 +40,23 @@ echo NODE_ENV=$NODE_ENV >> $dir/.env
 ###########################################
 # ENV variables
 ###########################################
-ACCESS_PROVIDER_PORT=$(cat $globalConfig | jq .services.access_provider_backend.port)
-ACCESS_PROVIDER_IP=$(cat $globalConfig | jq .services.access_provider_backend.ip.$mode | tr -d \")
+ACCESS_PROVIDER_PORT=443
+ACCESS_PROVIDER_EXTERNAL=$(cat $globalConfig | jq .services.access_provider_backend.ip.external)
 
-IDENTITY_PROVIDER_PORT=$(cat $globalConfig | jq .services.identity_provider_backend.port)
-IDENTITY_PROVIDER_IP=$(cat $globalConfig | jq .services.identity_provider_backend.ip.$mode | tr -d \")
+IDENTITY_PROVIDER_PORT=443
+IDENTITY_PROVIDER_EXTERNAL=$(cat $globalConfig | jq .services.identity_provider_backend.ip.external)
 
-VOTER_FRONTEND_IP=$(cat $globalConfig | jq .services.voter_frontend.ip.$mode | tr -d \")
+VOTER_FRONTEND_EXTERNAL=$(cat $globalConfig | jq .services.voter_frontend.ip.external | tr -d \")
 
 ###########################################
 # write ENV variables into .env
 ###########################################
 echo REACT_APP_ACCESS_PROVIDER_PORT=${ACCESS_PROVIDER_PORT} >> $dir/.env
-echo REACT_APP_ACCESS_PROVIDER_IP=${ACCESS_PROVIDER_IP} >> $dir/.env
+echo REACT_APP_ACCESS_PROVIDER_IP=${ACCESS_PROVIDER_EXTERNAL} >> $dir/.env
 echo REACT_APP_IDENTITY_PROVIDER_PORT=${IDENTITY_PROVIDER_PORT} >> $dir/.env
-echo REACT_APP_IDENTITY_PROVIDER_IP=${IDENTITY_PROVIDER_IP} >> $dir/.env
+echo REACT_APP_IDENTITY_PROVIDER_IP=${IDENTITY_PROVIDER_EXTERNAL} >> $dir/.env
 
-echo VOTER_FRONTEND_IP=${VOTER_FRONTEND_IP} >> $dir/.env
+echo VOTER_FRONTEND_EXTERNAL=${VOTER_FRONTEND_EXTERNAL} >> $dir/.env
 
 cd $dir
 

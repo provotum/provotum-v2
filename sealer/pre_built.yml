@@ -24,7 +24,7 @@ services:
     labels:
       - "traefik.docker.network=e-voting"
       - "traefik.enable=true"
-      - "traefik.basic.frontend.rule=Host:${SEALER_BACKEND_IP}"
+      - "traefik.basic.frontend.rule=Host:${SEALER_BACKEND_EXTERNAL}"
       - "traefik.basic.port=${SEALER_BACKEND_PORT}"
       - "traefik.basic.protocol=http"
     networks:
