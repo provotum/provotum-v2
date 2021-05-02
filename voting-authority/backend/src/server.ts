@@ -25,14 +25,14 @@ server.use((req, res, next) => {
   // -----------------------------------------------------------------------
   // authentication middleware
 
-  const auth = {login: 'test', password: 'test'} // change this
+  const auth = {login: 'va', password: 'votingauthpw'}
 
-  // parse login and password from headers
   const b64auth = (req.headers.authorization || '').split(' ')[1] || ''
   const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':')
 
+  console.log(req.originalUrl)
   // Verify login and password are set and correct
-  if (login && password && login === auth.login && password === auth.password) {
+  if ((login && password && login === auth.login && password === auth.password) || req.originalUrl !== '/') {
     // Access granted...
     return next()
   }
@@ -44,6 +44,7 @@ server.use((req, res, next) => {
   // -----------------------------------------------------------------------
 
 })
+
 server.use(
   cors({
     origin: [

@@ -22,6 +22,30 @@ const server = express()
 server.use(express.json())
 server.use(express.urlencoded({ extended: true }))
 server.use(logger)
+server.use((req, res, next) => {
+
+  // -----------------------------------------------------------------------
+  // authentication middleware
+
+  const auth = {login: 'sealer', password: 'sealerpw'}
+
+  const b64auth = (req.headers.authorization || '').split(' ')[1] || ''
+  const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':')
+
+  console.log(req.originalUrl)
+  // Verify login and password are set and correct
+  if ((login && password && login === auth.login && password === auth.password) || req.originalUrl !== '/') {
+    // Access granted...
+    return next()
+  }
+
+  // Access denied...
+  res.set('WWW-Authenticate', 'Basic realm="401"') // change this
+  res.status(401).send('Authentication required.') // custom message
+
+  // -----------------------------------------------------------------------
+
+})
 server.use(
   cors({
     origin: [
