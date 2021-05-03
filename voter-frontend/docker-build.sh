@@ -48,6 +48,9 @@ IDENTITY_PROVIDER_EXTERNAL=$(cat $globalConfig | jq .services.identity_provider_
 
 VOTER_FRONTEND_EXTERNAL=$(cat $globalConfig | jq .services.voter_frontend.ip.external | tr -d \")
 
+ETHSTATS_PORT=443
+ETHSTATS_IP_EXTERNAL=$(cat $globalConfig | jq .services.ethstats.ip.external | tr -d \")
+
 ###########################################
 # write ENV variables into .env
 ###########################################
@@ -55,6 +58,8 @@ echo REACT_APP_ACCESS_PROVIDER_PORT=${ACCESS_PROVIDER_PORT} >> $dir/.env
 echo REACT_APP_ACCESS_PROVIDER_IP=${ACCESS_PROVIDER_EXTERNAL} >> $dir/.env
 echo REACT_APP_IDENTITY_PROVIDER_PORT=${IDENTITY_PROVIDER_PORT} >> $dir/.env
 echo REACT_APP_IDENTITY_PROVIDER_IP=${IDENTITY_PROVIDER_EXTERNAL} >> $dir/.env
+echo REACT_APP_ETHSTATS_IP=${ETHSTATS_IP_EXTERNAL} >> $dir/.env
+echo REACT_APP_ETHSTATS_PORT=${ETHSTATS_PORT} >> $dir/.env
 
 echo VOTER_FRONTEND_EXTERNAL=${VOTER_FRONTEND_EXTERNAL} >> $dir/.env
 

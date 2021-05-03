@@ -6,3 +6,4 @@ export const PERSONAL_ACCOUNT_ERROR_MESSAGE = 'Could not create your wallet.'
 
 export const ACCESS_PROVIDER_URL = `https://${process.env.REACT_APP_ACCESS_PROVIDER_IP}:${process.env.REACT_APP_ACCESS_PROVIDER_PORT}`
 export const IDENTITY_PROVIDER_URL = `https://${process.env.REACT_APP_IDENTITY_PROVIDER_IP}:${process.env.REACT_APP_IDENTITY_PROVIDER_PORT}`
+export const ETHSTATS_URL = `https://${process.env.REACT_APP_ETHSTATS_IP}:${process.env.REACT_APP_ETHSTATS_PORT}`

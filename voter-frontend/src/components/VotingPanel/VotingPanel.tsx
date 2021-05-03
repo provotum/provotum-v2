@@ -29,6 +29,7 @@ import { BallotService } from '../../services'
 import { useVoterStore } from '../../store'
 import mainTheme from '../../Theme'
 import { delay } from '../../util/helper'
+import { ETHSTATS_URL } from '../../constants'
 
 interface Props {
   contract: any
@@ -163,7 +164,7 @@ const VotingPanel: React.FC<Props> = ({ contract }) => {
               fullWidth
               variant="outlined"
               size="small"
-              onClick={() => window.open(`http://localhost:6001/tx/${voterState.voteTx.transactionHash}`, '_blank')}
+              onClick={() => window.open(`${ETHSTATS_URL}/tx/${voterState.voteTx.transactionHash}`, '_blank')}
             >
               Inspect Transaction
             </Button>
