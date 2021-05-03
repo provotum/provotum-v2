@@ -35,7 +35,7 @@ PARITY_NODE_PORT=443
 echo ETHSTATS_PORT=$ETHSTATS_PORT >> $dir/.env
 echo ETHSTATS_IP=$ETHSTATS_IP >> $dir/.env
 echo PARITY_NODE_PORT=$PARITY_NODE_PORT >> $dir/.env
-echo PARITY_NODE_IP=sealer_authority_1 >> $dir/.env
+echo PARITY_NODE_IP=$PARITY_NODE_IP >> $dir/.env
 
 # ###########################################
 # # start container
