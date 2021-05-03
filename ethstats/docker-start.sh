@@ -26,7 +26,7 @@ globalConfig=$parentDir/system.json
 ETHSTATS_PORT=$(cat $globalConfig | jq .services.ethstats.port)
 ETHSTATS_IP=$(cat $globalConfig | jq .services.ethstats.ip.external | tr -d \")
 # - POA Blockchain Main RPC PORT (the port stays the same, in dev and prod mode)
-PARITY_NODE_IP=$(cat $globalConfig | jq .services.sealer_parity_1.external | tr -d \")
+PARITY_NODE_IP=$(cat $globalConfig | jq .services.sealer_parity_1.ip.external | tr -d \")
 PARITY_NODE_PORT=443
 
 ###########################################
