@@ -4,7 +4,7 @@ services:
   ethstats:
     image: alethio/ethereum-lite-explorer
     environment:
-      - APP_NODE_URL=http://${PARITY_NODE_IP}:${PARITY_NODE_PORT}
+      - APP_NODE_URL=https://${PARITY_NODE_IP}:${PARITY_NODE_PORT}
     labels:
       - "traefik.docker.network=e-voting"
       - "traefik.enable=true"

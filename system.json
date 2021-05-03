@@ -125,7 +125,7 @@
         "development": "localhost",
         "production": "172.1.1.173"
       },
-      "port": 6001
+      "port": 80
     }
   }
 }
